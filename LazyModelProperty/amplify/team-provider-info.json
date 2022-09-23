@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lazymodelproperty-dev-122428-authRole",
+      "UnauthRoleArn": "arn:aws:iam::947983933190:role/amplify-lazymodelproperty-dev-122428-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::947983933190:role/amplify-lazymodelproperty-dev-122428-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-lazymodelproperty-dev-122428-deployment",
+      "UnauthRoleName": "amplify-lazymodelproperty-dev-122428-unauthRole",
+      "StackName": "amplify-lazymodelproperty-dev-122428",
+      "StackId": "arn:aws:cloudformation:us-east-1:947983933190:stack/amplify-lazymodelproperty-dev-122428/8c7ff230-1ff4-11ed-9a3f-0a4008c77211",
+      "AmplifyAppId": "d3o1lwi2jz2h92"
+    }
+  }
+}
