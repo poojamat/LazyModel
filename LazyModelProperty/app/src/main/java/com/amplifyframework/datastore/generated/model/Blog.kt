@@ -1,7 +1,7 @@
 package com.amplifyframework.datastore.generated.model
 
 import androidx.core.util.ObjectsCompat
-import com.amplifyframework.kotlin.core.Amplify
+import com.amplifyframework.core.model.LazyList
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.annotations.HasMany
 import com.amplifyframework.core.model.annotations.ModelConfig
@@ -10,15 +10,13 @@ import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryField.field
 import com.amplifyframework.core.model.temporal.Temporal
+import com.amplifyframework.kotlin.core.Amplify
 import kotlinx.coroutines.*
-import kotlinx.coroutines.async
-
 import kotlinx.coroutines.flow.toList
-import java.lang.StringBuilder
 import java.util.*
 
 /** This is an auto generated class representing the Blog type in your schema.  */
-@ModelConfig(pluralName = "Blogs")
+@ModelConfig(pluralName = "Blogs", version = 1)
 public class Blog (
     @field:ModelField(
         targetType = "ID",
@@ -26,14 +24,24 @@ public class Blog (
     ) val id: String, @field:ModelField(targetType = "String", isRequired = true)
     val name: String
 ) : Model {
-
     @ModelField(targetType = "Post")
-    @HasMany(associatedWith = "blog", type = Post::class)
-    var posts: List<Post>? = null
+    @HasMany(associatedWith = "blog", type = Post::class, targetNames = ["blogPostsId"])
+    private val posts: LazyList<Post>? = null
+
+    suspend fun posts(): List<Post>? = posts?.get()
+
+
+
+
+
+
+
+
+
 
     @DelicateCoroutinesApi
-@ExperimentalCoroutinesApi
-var postsRunBlocking: List<Post>?
+    @ExperimentalCoroutinesApi
+    var postsRunBlocking: List<Post>?
         get() {
             runBlocking {
                _post = postsLazy()
@@ -167,6 +175,7 @@ var postsRunBlocking: List<Post>?
             this.id = id
             return this
         }
+
     }
 
     inner class CopyOfBuilder(id: String, name: String) : Builder() {

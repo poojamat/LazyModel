@@ -3,16 +3,14 @@ package com.example.lazymodelproperty
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.lifecycleScope
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.datastore.AWSDataStorePlugin
@@ -20,11 +18,11 @@ import com.amplifyframework.datastore.generated.model.Blog
 import com.amplifyframework.datastore.generated.model.Post
 import com.amplifyframework.kotlin.core.Amplify
 import com.example.lazymodelproperty.databinding.ActivityMainBinding
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -73,12 +71,12 @@ class MainActivity : AppCompatActivity() {
             savedBlog = Amplify.DataStore.query(Blog::class).toList()
 
         }
-        val blogPosts = blog.posts
+       // val blogPosts = blog.posts
         //val blogPostsLazy = blog.postsLazy
         var blogPostsLazy2: List<Post>?
         var savedBlogPostsLazy2: List<Post>?
 
-        val savedBlogPosts = savedBlog?.get(0)?.posts
+        //val savedBlogPosts = savedBlog?.get(0)?.posts
         // val savedBlogPostsLazy = savedBlog?.get(0)?.postsLazy
 
 

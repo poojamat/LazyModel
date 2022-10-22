@@ -1,6 +1,8 @@
 package com.amplifyframework.datastore.generated.model
 
 import androidx.core.util.ObjectsCompat
+import com.amplifyframework.AmplifyException
+import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.InMemoryLazyModel
 import com.amplifyframework.core.model.LazyModel
 import com.amplifyframework.core.model.Model
@@ -8,7 +10,6 @@ import com.amplifyframework.core.model.annotations.BelongsTo
 import com.amplifyframework.core.model.annotations.HasMany
 import com.amplifyframework.core.model.annotations.ModelConfig
 import com.amplifyframework.core.model.annotations.ModelField
-import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.temporal.Temporal
 import java.util.*
@@ -24,8 +25,16 @@ class Post private constructor(
     private val blog: LazyModel<Blog>
 ) : Model {
 
+    suspend fun blog(): Blog = blog.require()
 
-    suspend fun blog(): Blog = blog.require(Where.matches(ID.eq(id)))
+
+
+    /**
+     * Method to be consumed by Java users to get the lazy loading behavior
+     */
+    fun blog(onSuccess: Consumer<Blog>, onFailure: Consumer<AmplifyException>){
+        blog.get( onSuccess, onFailure)
+    }
 
     @ModelField(targetType = "Comment")
     @HasMany(associatedWith = "post", type = Comment::class)
